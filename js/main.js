@@ -13,12 +13,32 @@ fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=margarita`)
 //lets try an OOP approach to this program
 function CocktailCard() {
 //Lets first grab all the DOM elements we need
-this.cocktail = document.querySelector('#cocktail_input').value;
+this.input = document.querySelector('#cocktail_input');
 this.searchButton = document.querySelector('#cocktail_search');
 this.name = document.querySelector('#cocktail_name');
 this.type = document.querySelector('#cocktail_type');
 this.image = document.querySelector('#cocktail_image');
 this.instructions = document.querySelector('#cocktail_instructions');
+
+//lets set up and initialize an event listener to grab the value of the cocktail the user inputted
+function setClickEvent(element, func) {
+    element.addEventListener('click', func);
+}
+
+//Lets set up the fetch function and manipulation of the dom
+function fetchAll(cocktail) {
+    let index = 0;
+    fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${cocktail}`)
+    .then(res => res.json())
+    .then(data => console.log(data.drinks[index]))
+    .catch(err => console.log(`Error! ${err}`));
+}
+
+//Setting up a method to print all properties to the DOM
+this.printCard = function() {
+    setClickEvent(this.searchButton, () => this.cocktail = this.input.value);
+};
+this.printCard();
 }
 
 let cocktailCard = new CocktailCard();
