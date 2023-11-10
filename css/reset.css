@@ -70,12 +70,3 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
-Breakdown
-As is tradition, let’s break it down:
-
-/* Box sizing rules */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
