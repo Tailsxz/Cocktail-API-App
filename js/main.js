@@ -12,6 +12,9 @@
 //Knowing this we can create a variable to hold the ingredients string, or we can create a list within our card and insert child list items to that list for each ingredient. With the latter option being a bit more difficult, but might present a nice challenge.
 //lets try an OOP approach to this program
 function CocktailCard() {
+//global intervalId to clear it when a new fetch is sent
+let intervalId;
+
 //Lets first grab all the DOM elements we need
 const searchButton = document.querySelector('#cocktail_search');
 const cocktailName = document.querySelector('#cocktail_name')
@@ -25,11 +28,6 @@ this.printCard = function() {
     if (!this.cocktail) {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
-    let intervalId = fetchAll(this.cocktail);
-    if (intervalId) {
-        clearInterval(intervalId);
-    }
-    //we are clearing the previous calls to set interval on each new click of the search button
     fetchAll(this.cocktail);
 };
 
@@ -39,31 +37,29 @@ function setClickEvent(element, func) {
 }
 
 setClickEvent(searchButton, this.printCard)
+//we need a reset() function to reset everything each time the search button is pressed
 
 //Lets set up the fetch function
 function fetchAll(cocktail) {
     let index = 0
+    //in the case the user fetches another list of drinks, clear the current interval, and apply the new one.
+    if (intervalId) {
+        clearTimeout(intervalId);
+    }
     fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(cocktail)}`)
     .then(res => res.json())
     .then(data => {
         //Here we are first applying the first cocktail in the drink, at index of 0, we got the automatic carousel working!!!!!! Lets goooooo
         applyAll(data, index)
-        setInterval(() => {
+        intervalId = setInterval(() => {
             index++;
             applyAll(data, index);
         }, 5000);
-        let intervalId = setInterval(() => {
-            index++;
-            applyAll(data, index);
-        }, 5000);
-        return intervalId;
     })
     .catch(err => cocktailName.innerText = `${cocktail} not found${err}`);
 }
 //seperate function to apply dom manipulation after the data has been fetched
 function applyAll(cocktailObj, index) {
-    console.log(cocktailObj.drinks[0]);
-    console.log(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(this.cocktail)}`)
     //this conditional will wipe the ingredients for each search the user inputs.
     if (ingredientsUl.innerHTML !== '') {
         ingredientsUl.innerHTML = '';
@@ -83,7 +79,6 @@ function setIngredients(curCocktail) {
         if (currentIngredient == null) {
             break;
         }
-        console.log(currentIngredient);
         ingredientsUl.appendChild(li).innerHTML = `<span>${currentIngredient}</span>`;
     }
 }
