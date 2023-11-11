@@ -30,7 +30,7 @@ this.printCard = function() {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
     fetchAll(this.cocktail);
-    cocktailInfoCard.style = 'display: block;'
+    cocktailInfoCard.style = 'display: block;';
 };
 
 //lets set up and initialize an event listener to grab the value of the cocktail the user inputted
@@ -69,6 +69,7 @@ function applyAll(cocktailObj, index) {
     let currentCocktail = cocktailObj.drinks[index % cocktailObj.drinks.length];
     cocktailName.innerText = currentCocktail.strDrink;
     type.innerText = currentCocktail.strAlcoholic;
+    console.log(currentCocktail)
     image.src = currentCocktail.strDrinkThumb;
     //inputting the instructions while replacing end of sentence with a line break.
     instructions.innerText = (currentCocktail.strInstructions.replaceAll('. ', '.\n'));

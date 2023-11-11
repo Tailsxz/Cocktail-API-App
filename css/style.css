@@ -1,9 +1,14 @@
 /* Root Custom CSS Properties */
 :root {
+/* typographic custom properties */
   --fs-xsmall: 2rem;
   --fs-small: 3rem;
   --fs-medium: 4rem;
   --fs-large: 6rem;
+/* color custom properties */
+  --color-neutral-300: hsl(200, 5%, 70%);
+  --color-neutral-400: hsl(197, 7%, 21%);
+  --color-primary-400: #FFFD98;
 }
 /* Base Styles */
 html {
@@ -12,8 +17,8 @@ html {
 }
 
 body {
-  background-color: #313638;
-  color: #DE541E;
+  background-color: var(--color-neutral-300);
+  color: var(--color-neutral-400);
 }
 
 
@@ -38,7 +43,7 @@ body {
     margin-inline: auto;
   }
   .card_query {
-    max-width: 300px;
+    max-width: 280px;
   }
   .card_cocktail {
     max-width: 100ch;
@@ -52,7 +57,7 @@ ul {
 
 /* Styling the Cards  */
 .card {
-  background-color: hsl(200, 5%, 70%);
+  background-color: var(--color-primary-400);
   border-radius: 15px;
   padding-inline: 2rem;
   margin-block-end: 2rem;
@@ -79,13 +84,29 @@ ul {
 }
 
 /* Styling the cocktail form */
-#cocktail_input {
-  min-height: 3rem;
-  margin-inline: auto;
-  display: block;
-  color: #DE541E;
+#cocktail_input,
+#cocktail_search {
   border: none;
+  padding: 1rem 0;
+  font-size: 2rem;
   border-radius: 5px;
+  color: var(--color-neutral-400);
+}
+
+#cocktail_input {
+  margin-inline: auto;
+  text-align: center;
+  display: block;
+}
+
+#cocktail_search {
+  padding-inline: 1rem;
+}
+
+#cocktail_input:focus-visible,
+#cocktail_search:focus-visible {
+  outline: none;
+  box-shadow: 0px 0px 5px 0px var(--color-neutral-400);
 }
 
 /* Styling the image */
