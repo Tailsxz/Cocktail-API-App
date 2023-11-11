@@ -1,16 +1,26 @@
+/* Root Custom CSS Properties */
+:root {
+  --fs-xsmall: 2rem;
+  --fs-small: 3rem;
+  --fs-medium: 4rem;
+  --fs-large: 6rem;
+}
 /* Base Styles */
 html {
   font-size: 62.5%;
   font-family: 'Poppins', 'Arial', sans-serif;
 }
 
-.horiz-center {
-  margin-inline: auto;
+body {
+  background-color: #313638;
+  color: #DE541E;
 }
+
 
 /* Base Layout */
 .container {
-  width: min(100% - 2rem, 1300px);
+  width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
 } 
 
 .main-heading {
@@ -18,17 +28,41 @@ html {
   margin-block: 3rem;
 }
 
+@media (min-width: 60em) {
+  .container-flex {
+  padding-inline-start: 2rem;
+  display: flex;
+  gap: 3rem;
+  }
+  .horiz-center {
+    margin-inline: auto;
+  }
+  .card_query {
+    max-width: 300px;
+  }
+  .card_cocktail {
+    max-width: 100ch;
+  }
+}
+
+
+ul {
+  padding-inline-start: 2rem;
+}
+
 /* Styling the Cards  */
 .card {
-  width: min(50% - 2rem, 400px);
-  border: 2px solid black;
+  background-color: hsl(200, 5%, 70%);
   border-radius: 15px;
-  padding-inline: 1rem;
+  padding-inline: 2rem;
   margin-block-end: 2rem;
+  box-shadow: -2px -4px 30px -10px rgba(0, 0, 0, 0.35);
 }
 
 .card_query {
+  height: fit-content;
   text-align: center;
+  padding-block: 2rem 1rem;
 }
 
 .card_query *,
@@ -37,20 +71,43 @@ html {
 }
 
 .card_query h2 {
-  margin-block-start: 2rem;
+  margin-block-end: 2rem;
 }
 
+.card_cocktail {
+  display: none;
+}
 
 /* Styling the cocktail form */
 #cocktail_input {
+  min-height: 3rem;
+  margin-inline: auto;
   display: block;
+  color: #DE541E;
+  border: none;
+  border-radius: 5px;
 }
 
 /* Styling the image */
 
 #cocktail_image {
   border-radius: 5px;
-  box-shadow: 0px -4px 15px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: -4px -8px 15px -7px rgba(0, 0, 0, 0.8);
 }
 
 /* Typography */
+
+.fs-xsmall {
+  font-size: var(--fs-xsmall);
+}
+
+.fs-small {
+  font-size: var(--fs-small);
+}
+.fs-medium {
+  font-size: var(--fs-medium);
+}
+
+.fs-large {
+  font-size: var(--fs-large);
+}

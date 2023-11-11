@@ -17,11 +17,12 @@ let intervalId;
 
 //Lets first grab all the DOM elements we need
 const searchButton = document.querySelector('#cocktail_search');
-const cocktailName = document.querySelector('#cocktail_name')
+const cocktailName = document.querySelector('#cocktail_name');
 const type = document.querySelector('#cocktail_type');
 const image = document.querySelector('#cocktail_image');
 const instructions = document.querySelector('#cocktail_instructions');
-const ingredientsUl = document.querySelector('#cocktail_ingredients')
+const ingredientsUl = document.querySelector('#cocktail_ingredients');
+const cocktailInfoCard = document.querySelector('.card_cocktail');
 //Setting up a method to print all properties to the DOM
 this.printCard = function() {
     this.cocktail = document.querySelector('#cocktail_input').value;
@@ -29,6 +30,7 @@ this.printCard = function() {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
     fetchAll(this.cocktail);
+    cocktailInfoCard.style = 'display: block;'
 };
 
 //lets set up and initialize an event listener to grab the value of the cocktail the user inputted
@@ -54,9 +56,9 @@ function fetchAll(cocktail) {
         intervalId = setInterval(() => {
             index++;
             applyAll(data, index);
-        }, 5000);
+        }, 7000);
     })
-    .catch(err => cocktailName.innerText = `${cocktail} not found${err}`);
+    .catch(err => cocktailName.innerText = `${cocktail} not found.`);
 }
 //seperate function to apply dom manipulation after the data has been fetched
 function applyAll(cocktailObj, index) {
@@ -68,7 +70,8 @@ function applyAll(cocktailObj, index) {
     cocktailName.innerText = currentCocktail.strDrink;
     type.innerText = currentCocktail.strAlcoholic;
     image.src = currentCocktail.strDrinkThumb;
-    instructions.innerText = currentCocktail.strInstructions;
+    //inputting the instructions while replacing end of sentence with a line break.
+    instructions.innerText = (currentCocktail.strInstructions.replaceAll('. ', '.\n'));
     setIngredients(currentCocktail);
 }
 //We want to add a list of ingredients, we can do so by creating a function to loop over the 15 potential ingredients and create a li item within our ul.
