@@ -19,19 +19,17 @@ const type = document.querySelector('#cocktail_type');
 const image = document.querySelector('#cocktail_image');
 const instructions = document.querySelector('#cocktail_instructions');
 const ingredientsUl = document.querySelector('#cocktail_ingredients')
-
-//Lets grab the carousel buttons and turn them into an array
-const carouselButtons = Array.from(document.querySelectorAll('.button_carousel'));
 //Setting up a method to print all properties to the DOM
 this.printCard = function() {
     this.cocktail = document.querySelector('#cocktail_input').value;
     if (!this.cocktail) {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
-    // if (this.cocktail.includes(' ')) {
-    //     this.cocktail = this.cocktail.replace(' ', '%20');
-    //     console.log(this.cocktail);
-    // }
+    let intervalId = fetchAll(this.cocktail);
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+    //we are clearing the previous calls to set interval on each new click of the search button
     fetchAll(this.cocktail);
 };
 
@@ -44,11 +42,23 @@ setClickEvent(searchButton, this.printCard)
 
 //Lets set up the fetch function
 function fetchAll(cocktail) {
-    let index = 0;
+    let index = 0
     fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(cocktail)}`)
     .then(res => res.json())
-    .then(data => applyAll(data, index))
-    .catch(err => cocktailName.innerText = `${cocktail} not found`);
+    .then(data => {
+        //Here we are first applying the first cocktail in the drink, at index of 0, we got the automatic carousel working!!!!!! Lets goooooo
+        applyAll(data, index)
+        setInterval(() => {
+            index++;
+            applyAll(data, index);
+        }, 5000);
+        let intervalId = setInterval(() => {
+            index++;
+            applyAll(data, index);
+        }, 5000);
+        return intervalId;
+    })
+    .catch(err => cocktailName.innerText = `${cocktail} not found${err}`);
 }
 //seperate function to apply dom manipulation after the data has been fetched
 function applyAll(cocktailObj, index) {
@@ -58,7 +68,7 @@ function applyAll(cocktailObj, index) {
     if (ingredientsUl.innerHTML !== '') {
         ingredientsUl.innerHTML = '';
     }
-    let currentCocktail = cocktailObj.drinks[index];
+    let currentCocktail = cocktailObj.drinks[index % cocktailObj.drinks.length];
     cocktailName.innerText = currentCocktail.strDrink;
     type.innerText = currentCocktail.strAlcoholic;
     image.src = currentCocktail.strDrinkThumb;
