@@ -13,24 +13,35 @@
 <body>
   <header>
     <div class="container">
-      <h1>All About Cocktails</h1>
+      <h1 class="main-heading horiz-center">All About Cocktails</h1>
     </div>
   </header>
   <main>
-    <form action="#" class="card_cocktail">
-      <h2>What's your favorite type of cocktail?</h2>
-      <input type="text" id="cocktail_input">
-      <button id="cocktail_search">Search!</button>
-    </form>
-    <div class="card_cocktail-information">
-      <h2 id="cocktail_name"></h2>
-      <span id="cocktail_type"></span>
-      <img src="#" alt="Image of the cocktail inputted" id="cocktail_image" width="300">
-      <h3>Ingredients</h3>
-      <ul id="cocktail_ingredients"></ul>
-      <h3>Instructions</h3>
-      <p id="cocktail_instructions"><span></span></p>
-    </div>   
+    <div class="container container-flex">
+      <div class="card card_query | horiz-center">
+        <div class="card_cocktail-query">
+          <h2>What's your favorite type of cocktail?</h2>
+          <form action="#" class="cocktail_form">
+            <input type="text" class="horiz-center" id="cocktail_input">
+            <button id="cocktail_search">Search!</button>
+          </form>
+        </div>
+      </div>
+      <div class="card card_cocktail horiz-center">
+        <div class="card_cocktail-information">
+          <h2 id="cocktail_name"></h2>
+          <img src="#" alt="Image of the cocktail inputted" id="cocktail_image" width="fit-content">
+          <span id="cocktail_type"></span>
+          <h3>Ingredients</h3>
+          <ul id="cocktail_ingredients"></ul>
+          <h3>Instructions</h3>
+          <p id="cocktail_instructions"><span></span></p>
+        </div>   
+      </div>
+    </div>
+      
+      
+    
   </main>
   <script type="text/javascript" src="js/main.js"></script>
 </body>
