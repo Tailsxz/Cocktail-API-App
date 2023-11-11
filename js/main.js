@@ -13,18 +13,25 @@
 //lets try an OOP approach to this program
 function CocktailCard() {
 //Lets first grab all the DOM elements we need
-this.searchButton = document.querySelector('#cocktail_search');
-cocktailName = document.querySelector('#cocktail_name')
-type = document.querySelector('#cocktail_type');
-image = document.querySelector('#cocktail_image');
-instructions = document.querySelector('#cocktail_instructions');
+const searchButton = document.querySelector('#cocktail_search');
+const cocktailName = document.querySelector('#cocktail_name')
+const type = document.querySelector('#cocktail_type');
+const image = document.querySelector('#cocktail_image');
+const instructions = document.querySelector('#cocktail_instructions');
+const ingredientsUl = document.querySelector('#cocktail_ingredients')
 
+//Lets grab the carousel buttons and turn them into an array
+const carouselButtons = Array.from(document.querySelectorAll('.button_carousel'));
 //Setting up a method to print all properties to the DOM
 this.printCard = function() {
     this.cocktail = document.querySelector('#cocktail_input').value;
     if (!this.cocktail) {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
+    // if (this.cocktail.includes(' ')) {
+    //     this.cocktail = this.cocktail.replace(' ', '%20');
+    //     console.log(this.cocktail);
+    // }
     fetchAll(this.cocktail);
 };
 
@@ -33,26 +40,40 @@ function setClickEvent(element, func) {
     element.addEventListener('click', func);
 }
 
-setClickEvent(this.searchButton, this.printCard)
+setClickEvent(searchButton, this.printCard)
 
 //Lets set up the fetch function
 function fetchAll(cocktail) {
     let index = 0;
-    fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${cocktail}`)
+    fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(cocktail)}`)
     .then(res => res.json())
     .then(data => applyAll(data, index))
-    .catch(err => console.log(`Error! ${err}`));
+    .catch(err => cocktailName.innerText = `${cocktail} not found`);
 }
-console.log(this.name)
+console.log(this.cocktail);
 //seperate function to apply dom manipulation after the data has been fetched
 function applyAll(cocktailObj, index) {
+    console.log(cocktailObj.drinks[0]);
+    console.log(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(this.cocktail)}`)
     let currentCocktail = cocktailObj.drinks[index];
     cocktailName.innerText = currentCocktail.strDrink;
     type.innerText = currentCocktail.strAlcoholic;
     image.src = currentCocktail.strDrinkThumb;
     instructions.innerText = currentCocktail.strInstructions;
+    setIngredients(currentCocktail);
 }
-
+//We want to add a list of ingredients, we can do so by creating a function to loop over the 15 potential ingredients and create a li item within our ul.
+function setIngredients(curCocktail) {
+    for (let i = 1; i <= 15; i++) {
+        let li = document.createElement('li');
+        let currentIngredient = curCocktail[`strIngredient${i}`];
+        if (currentIngredient == null) {
+            break;
+        }
+        console.log(currentIngredient);
+        ingredientsUl.appendChild(li).innerHTML = `<span>${currentIngredient}</span>`;
+    }
+}
 }
 
 let cocktailCard = new CocktailCard();
