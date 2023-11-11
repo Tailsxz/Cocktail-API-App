@@ -50,11 +50,14 @@ function fetchAll(cocktail) {
     .then(data => applyAll(data, index))
     .catch(err => cocktailName.innerText = `${cocktail} not found`);
 }
-console.log(this.cocktail);
 //seperate function to apply dom manipulation after the data has been fetched
 function applyAll(cocktailObj, index) {
     console.log(cocktailObj.drinks[0]);
     console.log(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(this.cocktail)}`)
+    //this conditional will wipe the ingredients for each search the user inputs.
+    if (ingredientsUl.innerHTML !== '') {
+        ingredientsUl.innerHTML = '';
+    }
     let currentCocktail = cocktailObj.drinks[index];
     cocktailName.innerText = currentCocktail.strDrink;
     type.innerText = currentCocktail.strAlcoholic;
@@ -74,6 +77,7 @@ function setIngredients(curCocktail) {
         ingredientsUl.appendChild(li).innerHTML = `<span>${currentIngredient}</span>`;
     }
 }
+//lets pseudocode an automatic carousel, we know that we can use modulus to our advantage, to be able to increment the current index every few seconds (setTimeout()), but our fetch and apply function then needs to also run every few seconds with the new index.
 }
 
 let cocktailCard = new CocktailCard();
