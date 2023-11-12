@@ -80,10 +80,11 @@ function setIngredients(curCocktail) {
     for (let i = 1; i <= 15; i++) {
         let li = document.createElement('li');
         let currentIngredient = curCocktail[`strIngredient${i}`];
+        let currentMeasurement = curCocktail[`strMeasure${i}`];
         if (currentIngredient == null) {
             break;
         }
-        ingredientsUl.appendChild(li).innerHTML = `<span>${currentIngredient}</span>`;
+        ingredientsUl.appendChild(li).innerHTML = `<span>${currentIngredient}${currentMeasurement ? ` - ${currentMeasurement}` : ``}</span>`;
     }
 }
 //lets pseudocode an automatic carousel, we know that we can use modulus to our advantage, to be able to increment the current index every few seconds (setTimeout()), but our fetch and apply function then needs to also run every few seconds with the new index.
