@@ -26,7 +26,7 @@ body {
 
 /* Base Layout */
 .container {
-  width: min(100% - 2rem, 1200px);
+  width: min(100% - 2rem, 1250px);
   margin-inline: auto;
 } 
 
@@ -67,7 +67,7 @@ ul {
 }
 
 .card_query {
-  height: fit-content;
+  align-self: flex-start;
   text-align: center;
   padding-block: 2rem 1rem;
 }
