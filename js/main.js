@@ -35,9 +35,14 @@ this.printCard = function() {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
     fetchAll(this.cocktail);
+};
+//we need to fix our fetch to only display cocktail card after the fetch, so we can return it in our fetch function, think we can just call it at the end of our fetch, but ima see what happens when a function call is returned
+
+function showCard() {
     cocktailCard.style = 'display: block;';
     errorCard.style = 'display: none;';
-};
+}
+
 
 //lets set up and initialize an event listener to grab the value of the cocktail the user inputted
 
@@ -70,6 +75,7 @@ function fetchAll(cocktail) {
             index++;
             applyAll(data, index);
         }, 7000);
+        return showCard();
     })
     .catch(err => displayError(err));
 }
