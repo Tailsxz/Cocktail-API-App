@@ -30,7 +30,7 @@ const errorCard = document.querySelector('.card_error');
 //Setting up a method to print all properties to the DOM
 
 this.printCard = function() {
-    this.cocktail = document.querySelector('#cocktail_input').value.toLowerCase().replaceAll(' ', '');
+    this.cocktail = document.querySelector('#cocktail_input').value.toLowerCase().trim();
     if (!this.cocktail) {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
