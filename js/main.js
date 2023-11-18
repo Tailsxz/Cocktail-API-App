@@ -30,7 +30,7 @@ const errorCard = document.querySelector('.card_error');
 //Setting up a method to print all properties to the DOM
 
 this.printCard = function() {
-    this.cocktail = document.querySelector('#cocktail_input').value;
+    this.cocktail = document.querySelector('#cocktail_input').value.toLowerCase().replaceAll(' ', '');
     if (!this.cocktail) {
         this.cocktail = prompt('Please enter a valid cocktail');
     }
@@ -45,7 +45,11 @@ function setClickEvent(element, func) {
     element.addEventListener('click', func);
 }
 
-setClickEvent(searchButton, this.printCard)
+setClickEvent(searchButton, (e) => {
+    e.preventDefault();
+    this.printCard();
+
+})
 
 //we need a reset() function to reset everything each time the search button is pressed
 
