@@ -50,7 +50,7 @@ function setClickEvent(element, func) {
 setClickEvent(searchButton, (e) => {
     e.preventDefault();
     this.printCard();
-
+    applyAnimation(e.target);
 })
 
 //we need a reset() function to reset everything each time the search button is pressed
@@ -119,6 +119,13 @@ function displayError(error){
 }
 
 //lets pseudocode an automatic carousel, we know that we can use modulus to our advantage, to be able to increment the current index every few seconds (setTimeout()), but our fetch and apply function then needs to also run every few seconds with the new index.
+}
+
+//lets create a function to add our animation to our button when clicked.
+
+function applyAnimation(element) {
+    element.classList.add('animate');
+    setTimeout(() => element.classList.remove('animate'), 80);
 }
 
 let cocktailCard = new CocktailCard();

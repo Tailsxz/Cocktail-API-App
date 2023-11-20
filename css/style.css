@@ -102,6 +102,8 @@ ul {
   font-size: 2rem;
   border-radius: 5px;
   color: var(--color-neutral-400);
+  transition: box-shadow 100ms ease-in,
+               transform 80ms ease-in;
 }
 
 #cocktail_input {
@@ -112,13 +114,19 @@ ul {
 }
 
 #cocktail_search {
+  background: white;
   padding-inline: 1rem;
 }
 
 #cocktail_input:focus-visible,
-#cocktail_search:focus-visible {
+#cocktail_search:focus-visible,
+#cocktail_search:hover {
   outline: none;
   box-shadow: 0px 0px 10px 0px var(--color-primary-700);
+}
+
+.animate {
+  transform: translateY(5px);
 }
 
 /* Styling the image */
