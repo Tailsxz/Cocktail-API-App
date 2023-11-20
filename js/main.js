@@ -30,7 +30,7 @@ const errorCard = document.querySelector('.card_error');
 //Setting up a method to print all properties to the DOM
 
 this.printCard = function() {
-    this.cocktail = document.querySelector('#cocktail_input').value.toLowerCase().replaceAll(' ', '');
+    this.cocktail = document.querySelector('#cocktail_input').value.toLowerCase().trim();
     fetchAll(this.cocktail);
 };
 //we need to fix our fetch to only display cocktail card after the fetch, so we can return it in our fetch function, think we can just call it at the end of our fetch, but ima see what happens when a function call is returned
