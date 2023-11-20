@@ -31,9 +31,6 @@ const errorCard = document.querySelector('.card_error');
 
 this.printCard = function() {
     this.cocktail = document.querySelector('#cocktail_input').value.toLowerCase().replaceAll(' ', '');
-    if (!this.cocktail) {
-        this.cocktail = prompt('Please enter a valid cocktail');
-    }
     fetchAll(this.cocktail);
 };
 //we need to fix our fetch to only display cocktail card after the fetch, so we can return it in our fetch function, think we can just call it at the end of our fetch, but ima see what happens when a function call is returned
@@ -61,6 +58,9 @@ setClickEvent(searchButton, (e) => {
 //Lets set up the fetch function
 
 function fetchAll(cocktail) {
+    //guard clause to return and not perform the fetch if the input is empty
+    if (!cocktail) return;
+
     let index = 0
     //in the case the user fetches another list of drinks, clear the current interval, and apply the new one.
     if (intervalId) {
