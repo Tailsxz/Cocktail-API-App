@@ -32,7 +32,7 @@ body {
 
 .main-heading {
   width: fit-content;
-  margin-block: 3rem;
+  padding-block: 3rem;
 }
 
 @media (min-width: 60em) {
